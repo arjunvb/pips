@@ -748,7 +748,7 @@ class Summ_writer(object):
         # rgbs is B, S, C, H, W
         B, S, C, H, W = rgbs.shape
         B, S2, N, D = trajs.shape
-        assert S == S2
+        assert S == S2, f"S = {S}, S2 = {S2} (expected equal)"
 
         rgbs = rgbs[0]  # S, C, H, W
         trajs = trajs[0]  # S, N, 2
