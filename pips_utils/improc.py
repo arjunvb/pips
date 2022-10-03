@@ -968,7 +968,13 @@ class Summ_writer(object):
         color_map = cm.get_cmap(cmap)
         S1, D = traj.shape
 
+        def in_bounds(x):
+            return x[0] > 0 and x[0] < H and x[1] > 0 and x[1] < W
+
         for s in range(S1 - 1):
+            if not in_bounds(traj[s]) or not in_bounds(traj[s + 1]):
+                continue
+
             if maxdist is not None:
                 val = (np.sqrt(np.sum((traj[s] - traj[0]) ** 2)) / maxdist).clip(0, 1)
                 color = np.array(color_map(val)[:3]) * 255  # rgb
@@ -996,7 +1002,8 @@ class Summ_writer(object):
             )  # rgb
 
         # color = np.array(color_map(1.0)[:3]) * 255
-        cv2.circle(rgb, (traj[-1, 0], traj[-1, 1]), linewidth * 2, color, -1)
+        if in_bounds(traj[-1]):
+            cv2.circle(rgb, (traj[-1, 0], traj[-1, 1]), linewidth * 2, color, -1)
 
         return rgb
 
