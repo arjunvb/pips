@@ -4,6 +4,10 @@ import numpy as np
 import random
 import draw
 
+import sys
+import os
+
+sys.path.append(os.path.dirname(__file__))
 from nets.pips import Pips
 
 import pips_utils.improc
@@ -127,13 +131,6 @@ class PipsFlow:
         self.model = Pips(stride=4, S=self.flow_len).cuda()
         _ = saverloader.load(pips_path, self.model)
         self.model.eval()
-
-        # For visualization
-        self.sw = pips_utils.improc.Summ_writer(
-            writer=None,
-            global_step=0,
-            just_gif=True,
-        )
 
     def track(self, keypoints, rgbs):
         """
