@@ -4,14 +4,46 @@ This is the official code release for our ECCV2022 paper on tracking particles t
 
 **[[Paper](https://arxiv.org/abs/2204.04153)] [[Project Page](https://particle-video-revisited.github.io/)]**
 
+
 <img src='https://particle-video-revisited.github.io/images/fig1.jpg'>
 
+### Update 12/15/22:
+
+- Added new reference model, trained on a slightly harder version of FlyingThings++ and larger batch size.
+- Updated `train.py` and `flyingthings.py` with these settings. Get the new reference model (as before) with `./get_reference_model.sh` or from [HuggingFace](https://huggingface.co/aharley/pips).
+- New results are better than the paper. Here they are: 
+
+  BADJA:
+  ```
+  bear: 76.1
+  camel: 91.6
+  cows: 87.7
+  dog-agility: 31.0
+  dog: 45.4
+  horsejump-high: 60.9
+  horsejump-low: 58.1
+  avg: 64.4
+  ```
+
+  CroHD:
+  ```
+  vis: 4.57
+  occ: 7.71
+  ```
+
+  FlyingThings:
+  ```
+  pips: ate_vis = 6.03, ate_occ = 19.56
+  raft: ate_vis = 16.65, ate_occ = 43.22
+  dino: ate_vis = 42.98, ate_occ = 76.78
+  ```
 
 ## Requirements
 
 The lines below should set up a fresh environment with everything you need: 
 ```
 conda create --name pips
+source activate pips
 conda install pytorch=1.12.0 torchvision=0.13.0 cudatoolkit=11.3 -c pytorch
 conda install pip
 pip install -r requirements.txt
@@ -19,7 +51,9 @@ pip install -r requirements.txt
 
 ## Demo
 
-To download our reference model, run this:
+To download our reference model, download the weights from [Hugging Face. ![](https://img.shields.io/badge/🤗%20Hugging%20Face-Model-blue)](https://huggingface.co/aharley/pips)
+
+Alternatively, you can run this:
 
 ```
 sh get_reference_model.sh
@@ -54,6 +88,8 @@ The original video is `https://www.youtube.com/watch?v=LaqYt0EZIkQ`. The file `d
 To inspect our PIPs model implementation, the main file to look at is `nets/pips.py`
 
 ## FlyingThings++ dataset
+
+To download our exact FlyingThings++ dataset, try [this link](https://drive.google.com/drive/folders/1zzWkGGFgJPyHpVaSA19zpYlux1Mf6wGC?usp=share_link). If the link doesn't work, contact me for a secondary link, or create the data from the original FlyingThings, as described next. 
 
 To create our FlyingThings++ dataset, first [download FlyingThings](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html). The data should look like:
 
@@ -150,7 +186,7 @@ To evaluate the model in BAJDA, first follow the instructions at the [BADJA repo
 If you use this code for your research, please cite:
 
 **Particle Video Revisited: Tracking Through Occlusions Using Point Trajectories**.
-[Adam W. Harley](https://cs.cmu.edu/~aharley),
+[Adam W. Harley](https://adamharley.com/),
 [Zhaoyuan Fang](https://zfang399.github.io/),
 [Katerina Fragkiadaki](http://cs.cmu.edu/~katef/). In ECCV 2022.
 
