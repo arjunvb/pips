@@ -651,6 +651,8 @@ class Pips(nn.Module):
             )  # B*N,S,1
             flows_ = torch.cat([flows_, times_], dim=2)  # B*N,S,2
 
+            ffeats_ = ffeats.permute(0, 2, 1, 3).reshape(B * N, S, self.latent_dim)
+
             delta_all_ = self.delta_block(ffeats_, fcorrs_, flows_)  # B*N, S, C+2
             delta_coords_ = delta_all_[:, :, :2]
             delta_feats_ = delta_all_[:, :, 2:]
