@@ -10,8 +10,8 @@ import torch.nn.functional as F
 from PIL import Image
 import random
 from torch._C import dtype, set_flush_denormal
-import utils.basic
-import utils.improc
+import pips_utils.basic
+import pips_utils.improc
 import glob
 import json
 import imageio
@@ -117,7 +117,7 @@ class FlyingThingsDataset(torch.utils.data.Dataset):
 
         for subset in subsets:
             rgb_root_path = os.path.join(dataset_location, "frames_cleanpass_webp", dset, subset)
-            flow_root_path = os.path.join(dataset_location, "optical_flow", dset, subset)
+            # flow_root_path = os.path.join(dataset_location, "optical_flow", dset, subset)
             traj_root_path = os.path.join(dataset_location, "trajs_%s" % version, dset, subset)
             mask_root_path = os.path.join(dataset_location, "object_index", dset, subset)
 
@@ -156,7 +156,7 @@ class FlyingThingsDataset(torch.utils.data.Dataset):
 
         for subset in subsets:
             rgb_root_path = os.path.join(dataset_location, "frames_cleanpass_webp", dset, subset)
-            flow_root_path = os.path.join(dataset_location, "optical_flow", dset, subset)
+            # flow_root_path = os.path.join(dataset_location, "optical_flow", dset, subset)
             mask_root_path = os.path.join(dataset_location, "object_index", dset, subset)
             occ_root_path = os.path.join(dataset_location, "occluders_%s" % occ_version, dset, subset)
 
